@@ -12,6 +12,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.stereotype.Controller;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -25,11 +28,14 @@ public class TodoIntegrationTest {
     @Autowired
     TodoRepository todoRepository;
 
+    List<Todo> todos;
+
     @BeforeEach
     void setUp() {
-        todoRepository.save(new Todo(null,"todo1",false));
-        todoRepository.save(new Todo(null,"todo2",false));
-        todoRepository.save(new Todo(null,"todo3",false));
+        todos = new ArrayList<>();
+        for(int i = 0; i < 3; i++){
+            todos.add(todoRepository.save(new Todo(null,"todo"+i,false)));
+        }
     }
 
     @AfterEach
@@ -42,8 +48,22 @@ public class TodoIntegrationTest {
     void should_return_todos_when_get_all_todos_given_none() throws Exception {
 
         //when then
-        mockMvc.perform(get("/mytodos"))
+        mockMvc.perform(get("/todos"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(3)));
+    }
+
+    @Test
+    void should_return_todo_when_get_todo_by_id_given_id() throws Exception {
+
+        Todo todo = todos.get(1);
+        int id = todo.getId();
+
+        //when then
+        mockMvc.perform(get("/todos/" + id))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(todo.getId()))
+                .andExpect(jsonPath("$.content").value(todo.getContent()))
+                .andExpect(jsonPath("$.status").value(todo.getStatus()));
     }
 }
