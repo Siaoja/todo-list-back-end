@@ -17,14 +17,20 @@ public class TodoController {
     public List<Todo> getAllTodo(){
         return todoService.getAllTodos();
     }
+
     @GetMapping("/{id}")
     public Todo getTodoById(@PathVariable Integer id){
         return todoService.getTodoById(id);
     }
+
     @PostMapping()
     public Todo addTodo(@RequestBody Todo todo){
         return todoService.addTodo(todo);
     }
 
+    @PutMapping("/{id}")
+    public Todo updateTodo(@PathVariable Integer id, @RequestBody Todo todo){
+        return todoService.updateTodo(id,todo);
+    }
 
 }
