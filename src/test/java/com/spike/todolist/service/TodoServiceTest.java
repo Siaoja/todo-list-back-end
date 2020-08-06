@@ -126,4 +126,16 @@ public class TodoServiceTest {
     }
 
 
+    @Test
+    void should_throw_not_found_exception_when_update_todo_by_id_given_not_exist_id() {
+        //given
+        int id = 10;
+
+        //when
+        Exception exception = assertThrows(NotExistTodoException.class, () -> todoService.updateTodo(id,new Todo()));
+
+        //then
+        assertEquals(NotExistTodoException.class, exception.getClass());
+    }
+
 }
