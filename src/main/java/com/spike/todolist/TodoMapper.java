@@ -7,6 +7,8 @@ import org.springframework.beans.BeanUtils;
 public class TodoMapper {
 
     public static Todo todoRequestToTodo(TodoRequest todoRequest) {
-        return null;
+        Todo todo = new Todo();
+        BeanUtils.copyProperties(todoRequest,todo);
+        return todo;
     }
 }
