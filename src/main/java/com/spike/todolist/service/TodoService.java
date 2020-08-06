@@ -36,10 +36,10 @@ public class TodoService {
         return todoRepository.save(todo);
     }
 
-    public Todo deleteTodo(int id) {
+    public void deleteTodo(int id) {
         Todo todo = getTodoById(id);
         if(todo != null)
             todoRepository.deleteById(id);
-        return todo;
+
     }
 }

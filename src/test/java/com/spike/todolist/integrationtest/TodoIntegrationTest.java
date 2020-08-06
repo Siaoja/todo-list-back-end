@@ -7,6 +7,7 @@ import com.spike.todolist.repository.TodoRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,8 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -85,5 +85,34 @@ public class TodoIntegrationTest {
     }
 
 
+    @Test
+    void should_return_todo_and_ok_status_when_update_todo_given_id_and_update_todo() throws Exception {
+        //given
+        Todo todo = todos.get(1);
+        int id = todo.getId();
+        Todo updatedTodo = new Todo();
+        BeanUtils.copyProperties(todo,updatedTodo);
+        updatedTodo.setStatus(true);
+
+        String updatedTodoInfo = JSON.toJSONString(updatedTodo);
+
+        //when then
+        mockMvc.perform(put("/todos/"+id).contentType(MediaType.APPLICATION_JSON).content(updatedTodoInfo))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(updatedTodo.getId()))
+                .andExpect(jsonPath("$.content").value(updatedTodo.getContent()))
+                .andExpect(jsonPath("$.status").value(updatedTodo.getStatus()));
+    }
+
+    @Test
+    void should_return_ok_status_when_delete_todo_given_id() throws Exception {
+        //given
+        int id = todos.get(1).getId();
+
+
+        //when then
+        mockMvc.perform(delete("/todos/"+id))
+                .andExpect(status().isOk());
+    }
 
 }
