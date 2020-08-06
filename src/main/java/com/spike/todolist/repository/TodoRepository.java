@@ -15,4 +15,8 @@ public class TodoRepository {
     public Todo save(Todo todo) {
         return null;
     }
+
+    public Todo findById() {
+        return null;
+    }
 }

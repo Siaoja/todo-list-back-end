@@ -45,6 +45,20 @@ public class TodoServiceTest {
         assertEquals(todos.get(0),todoList.get(0));
     }
 
+    @Test
+    public void should_return_todo_when_get_todo_by_id_given_id() {
+        Todo todo = todos.get(1);
+        //given
+        given(todoRepository.findById()).willReturn(todo);
+
+        //when
+        Todo foundtodo = todoService.getTodoById();
+
+        //then
+        assertEquals(todo.getId(),foundtodo.getId());
+        assertEquals(todo.getStatus(),foundtodo.getStatus());
+        assertEquals(todo.getContent(),foundtodo.getContent());
+    }
 
 
     @Test
