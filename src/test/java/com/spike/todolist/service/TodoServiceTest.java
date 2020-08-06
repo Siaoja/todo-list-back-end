@@ -136,4 +136,16 @@ public class TodoServiceTest {
         assertEquals(NotExistTodoException.class, exception.getClass());
     }
 
+    @Test
+    void should_throw_not_found_exception_when_delete_todo_by_id_given_not_exist_id() {
+        //given
+        int id = 10;
+
+        //when
+        Exception exception = assertThrows(NotExistTodoException.class, () -> todoService.deleteTodo(id));
+
+        //then
+        assertEquals(NotExistTodoException.class, exception.getClass());
+    }
+
 }
