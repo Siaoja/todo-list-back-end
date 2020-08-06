@@ -11,4 +11,8 @@ public class TodoRepository {
     public List<Todo> findAll() {
         return null;
     }
+
+    public Todo save(Todo todo) {
+        return null;
+    }
 }

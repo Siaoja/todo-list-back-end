@@ -33,7 +33,7 @@ public class TodoServiceTest {
     }
 
     @Test
-    public void should_return_todos_when_get_all_given_none() {
+    public void should_return_todos_when_get_all_todos_given_none() {
         //given
         given(todoRepository.findAll()).willReturn(todos);
 
@@ -44,4 +44,27 @@ public class TodoServiceTest {
         assertEquals(todos.size(),todoList.size());
         assertEquals(todos.get(0),todoList.get(0));
     }
+
+
+
+    @Test
+    void should_return_todo_when_update_todo_given_id_and_todo() {
+
+
+        //given
+        Todo todo = todos.get(1);
+        int id = todo.getId();
+        todo.setStatus(true);
+        given(todoRepository.save(todo)).willReturn(todo);
+
+        //when
+        Todo updatedTodo = todoService.updateTodo(id,todo);
+
+        //then
+        assertEquals(todo.getId(),updatedTodo.getId());
+        assertEquals(todo.getContent(),updatedTodo.getContent());
+        assertEquals(todo.getStatus(),updatedTodo.getStatus());
+
+    }
+
 }

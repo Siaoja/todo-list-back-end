@@ -30,7 +30,7 @@ public class Todo {
         this.content = content;
     }
 
-    public Boolean isStatus() {
+    public Boolean getStatus() {
         return status;
     }
 
