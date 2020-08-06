@@ -1,6 +1,7 @@
 package com.spike.todolist.service;
 
 import com.spike.todolist.entity.Todo;
+import com.spike.todolist.exception.NotExistTodoException;
 import com.spike.todolist.repository.TodoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,7 +29,10 @@ public class TodoService {
         return todoRepository.save(todo);
     }
 
-    public Todo getTodoById(int id) {
+    public Todo getTodoById(int id) throws NotExistTodoException {
+        Todo todo = todoRepository.findById(id).orElse(null);
+        if(todo == null)
+            throw new NotExistTodoException("todo not exist");
         return todoRepository.findById(id).orElse(null);
     }
 
@@ -36,7 +40,7 @@ public class TodoService {
         return todoRepository.save(todo);
     }
 
-    public void deleteTodo(int id) {
+    public void deleteTodo(int id) throws NotExistTodoException {
         Todo todo = getTodoById(id);
         if(todo != null)
             todoRepository.deleteById(id);

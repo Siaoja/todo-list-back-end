@@ -1,6 +1,7 @@
 package com.spike.todolist.controller;
 
 import com.spike.todolist.entity.Todo;
+import com.spike.todolist.exception.NotExistTodoException;
 import com.spike.todolist.service.TodoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,7 +24,7 @@ public class TodoController {
     }
 
     @GetMapping("/{id}")
-    public Todo getTodoById(@PathVariable Integer id){
+    public Todo getTodoById(@PathVariable Integer id) throws NotExistTodoException {
         return todoService.getTodoById(id);
     }
 
@@ -40,7 +41,7 @@ public class TodoController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteTodo(@PathVariable Integer id){
+    public void deleteTodo(@PathVariable Integer id) throws NotExistTodoException {
         todoService.deleteTodo(id);
     }
 

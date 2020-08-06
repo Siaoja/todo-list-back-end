@@ -49,7 +49,7 @@ public class TodoServiceTest {
     }
 
     @Test
-    public void should_return_todo_when_get_todo_by_id_given_id() {
+    public void should_return_todo_when_get_todo_by_id_given_id() throws NotExistTodoException {
         //given
         Todo todo = todos.get(1);
         int id = todo.getId();
@@ -101,7 +101,7 @@ public class TodoServiceTest {
     }
 
     @Test
-    void should_return_deleted_todo_when_delete_todo_given_id() {
+    void should_return_deleted_todo_when_delete_todo_given_id() throws NotExistTodoException {
         //given
         Todo todo = todos.get(1);
         int id = todo.getId();
@@ -124,4 +124,6 @@ public class TodoServiceTest {
         //then
         assertEquals(NotExistTodoException.class, exception.getClass());
     }
+
+
 }
