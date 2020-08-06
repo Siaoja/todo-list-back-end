@@ -25,8 +25,13 @@ public class TodoService {
         return todoRepository.findAll();
     }
 
-    public Todo updateTodo(int id, Todo todo) {
-        return todoRepository.save(todo);
+    public Todo updateTodo(int id, Todo todo) throws NotExistTodoException {
+        todo.setId(id);
+        Todo updatedTodo = todoRepository.save(todo);
+        if(updatedTodo == null){
+            throw new NotExistTodoException("todo not exist");
+        }
+        return updatedTodo;
     }
 
     public Todo getTodoById(int id) throws NotExistTodoException {

@@ -5,7 +5,6 @@ import com.spike.todolist.exception.NotExistTodoException;
 import com.spike.todolist.service.TodoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -36,7 +35,7 @@ public class TodoController {
     }
 
     @PutMapping("/{id}")
-    public Todo updateTodo(@PathVariable Integer id, @RequestBody Todo todo){
+    public Todo updateTodo(@PathVariable Integer id, @RequestBody Todo todo) throws NotExistTodoException {
         return todoService.updateTodo(id,todo);
     }
 

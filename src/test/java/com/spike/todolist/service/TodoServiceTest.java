@@ -3,8 +3,10 @@ package com.spike.todolist.service;
 import com.spike.todolist.entity.Todo;
 import com.spike.todolist.exception.NotExistTodoException;
 import com.spike.todolist.repository.TodoRepository;
-import org.junit.Before;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,10 +15,6 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.BDDMockito.given;
-
-import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
 
 public class TodoServiceTest {
     @Autowired
@@ -66,7 +64,7 @@ public class TodoServiceTest {
 
 
     @Test
-    void should_return_todo_when_update_todo_given_id_and_todo() {
+    void should_return_todo_when_update_todo_given_id_and_todo() throws NotExistTodoException {
 
         //given
         Todo todo = todos.get(1);
