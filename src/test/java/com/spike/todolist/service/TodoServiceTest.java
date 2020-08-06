@@ -81,4 +81,19 @@ public class TodoServiceTest {
 
     }
 
+    @Test
+    void should_return_todo_when_add_todo_given_todo() {
+        //given
+        Todo todo = new Todo(4,"hasaki",false);
+        given(todoRepository.save(todo)).willReturn(todo);
+
+        //when
+        Todo addedTodo = todoService.addTodo(todo);
+
+        //then
+        assertEquals(todo.getId(),addedTodo.getId());
+        assertEquals(todo.getContent(),addedTodo.getContent());
+        assertEquals(todo.getStatus(),addedTodo.getStatus());
+
+    }
 }

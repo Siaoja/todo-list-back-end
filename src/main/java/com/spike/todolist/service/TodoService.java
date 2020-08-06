@@ -29,4 +29,8 @@ public class TodoService {
     public Todo getTodoById(int id) {
         return todoRepository.findById(id);
     }
+
+    public Todo addTodo(Todo todo) {
+        return null;
+    }
 }
