@@ -26,7 +26,7 @@ public class TodoService {
         return todoRepository.save(todo);
     }
 
-    public Todo getTodoById() {
-        return null;
+    public Todo getTodoById(int id) {
+        return todoRepository.findById(id);
     }
 }

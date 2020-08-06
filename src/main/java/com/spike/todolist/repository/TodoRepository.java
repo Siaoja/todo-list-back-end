@@ -16,7 +16,7 @@ public class TodoRepository {
         return null;
     }
 
-    public Todo findById() {
+    public Todo findById(int id) {
         return null;
     }
 }

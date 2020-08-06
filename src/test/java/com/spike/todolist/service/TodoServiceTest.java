@@ -47,12 +47,13 @@ public class TodoServiceTest {
 
     @Test
     public void should_return_todo_when_get_todo_by_id_given_id() {
-        Todo todo = todos.get(1);
         //given
-        given(todoRepository.findById()).willReturn(todo);
+        Todo todo = todos.get(1);
+        int id = todo.getId();
+        given(todoRepository.findById(id)).willReturn(todo);
 
         //when
-        Todo foundtodo = todoService.getTodoById();
+        Todo foundtodo = todoService.getTodoById(id);
 
         //then
         assertEquals(todo.getId(),foundtodo.getId());
@@ -63,7 +64,6 @@ public class TodoServiceTest {
 
     @Test
     void should_return_todo_when_update_todo_given_id_and_todo() {
-
 
         //given
         Todo todo = todos.get(1);
