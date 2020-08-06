@@ -19,4 +19,8 @@ public class TodoRepository {
     public Todo findById(int id) {
         return null;
     }
+
+    public Todo deleteById(int id) {
+        return null;
+    }
 }

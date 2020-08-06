@@ -96,4 +96,21 @@ public class TodoServiceTest {
         assertEquals(todo.getStatus(),addedTodo.getStatus());
 
     }
+
+    @Test
+    void should_return_deleted_todo_when_delete_todo_given_id() {
+        //given
+        Todo todo = todos.get(1);
+        int id = todo.getId();
+        given(todoRepository.findById(id)).willReturn(todo);
+        given(todoRepository.deleteById(id)).willReturn(null);
+
+        //when
+        Todo deletedTodo = todoService.deleteTodo(id);
+
+        //then
+        assertEquals(todo.getId(),deletedTodo.getId());
+        assertEquals(todo.getContent(),deletedTodo.getContent());
+        assertEquals(todo.getStatus(),deletedTodo.getStatus());
+    }
 }
