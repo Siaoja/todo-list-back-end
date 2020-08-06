@@ -102,8 +102,7 @@ public class TodoServiceTest {
         //given
         Todo todo = todos.get(1);
         int id = todo.getId();
-        given(todoRepository.findById(id)).willReturn(todo);
-        given(todoRepository.deleteById(id)).willReturn(null);
+        given(todoRepository.deleteById(id)).willReturn(todo);
 
         //when
         Todo deletedTodo = todoService.deleteTodo(id);
