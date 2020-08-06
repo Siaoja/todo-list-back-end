@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.BDDMockito.given;
@@ -50,7 +51,7 @@ public class TodoServiceTest {
         //given
         Todo todo = todos.get(1);
         int id = todo.getId();
-        given(todoRepository.findById(id)).willReturn(todo);
+        given(todoRepository.findById(id)).willReturn(Optional.of(todo));
 
         //when
         Todo foundtodo = todoService.getTodoById(id);
@@ -102,7 +103,8 @@ public class TodoServiceTest {
         //given
         Todo todo = todos.get(1);
         int id = todo.getId();
-        given(todoRepository.deleteById(id)).willReturn(todo);
+        given(todoRepository.findById(id)).willReturn(Optional.of(todo));
+//        given(todoRepository.deleteById(id)).willReturn(todo);
 
         //when
         Todo deletedTodo = todoService.deleteTodo(id);

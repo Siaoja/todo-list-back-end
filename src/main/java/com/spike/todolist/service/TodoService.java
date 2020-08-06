@@ -2,6 +2,7 @@ package com.spike.todolist.service;
 
 import com.spike.todolist.entity.Todo;
 import com.spike.todolist.repository.TodoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.List;
 
 @Service
 public class TodoService {
+    @Autowired
     private TodoRepository todoRepository;
 
     public TodoService() {
@@ -27,7 +29,7 @@ public class TodoService {
     }
 
     public Todo getTodoById(int id) {
-        return todoRepository.findById(id);
+        return todoRepository.findById(id).orElse(null);
     }
 
     public Todo addTodo(Todo todo) {
@@ -35,6 +37,9 @@ public class TodoService {
     }
 
     public Todo deleteTodo(int id) {
-        return todoRepository.deleteById(id);
+        Todo todo = getTodoById(id);
+        if(todo != null)
+            todoRepository.deleteById(id);
+        return todo;
     }
 }
