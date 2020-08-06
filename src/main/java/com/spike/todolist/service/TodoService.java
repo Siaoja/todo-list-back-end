@@ -23,6 +23,6 @@ public class TodoService {
     }
 
     public Todo updateTodo(int id, Todo todo) {
-        return null;
+        return todoRepository.save(todo);
     }
 }
