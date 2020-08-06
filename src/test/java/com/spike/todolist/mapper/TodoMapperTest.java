@@ -2,6 +2,7 @@ package com.spike.todolist.mapper;
 
 import com.spike.todolist.TodoMapper;
 import com.spike.todolist.dto.TodoRequest;
+import com.spike.todolist.dto.TodoResponse;
 import com.spike.todolist.entity.Todo;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.BeanUtils;
@@ -24,4 +25,17 @@ public class TodoMapperTest {
         assertEquals(null,todo.getId());
     }
 
+    @Test
+    void should_return_todo_response_when_todo_to_todo_response_given_todo() {
+        //given
+        Todo todo = new Todo(1,"todo1",false);
+
+        //when
+        TodoResponse todoResponse = TodoMapper.todoToTodoResponse(todo);
+
+        //then
+        assertEquals(todo.getContent(),todoResponse.getContent());
+        assertEquals(todo.getStatus(),todoResponse.getStatus());
+        assertEquals(todo.getId(),todoResponse.getId());
+    }
 }
