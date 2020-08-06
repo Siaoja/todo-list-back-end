@@ -4,9 +4,7 @@ import com.spike.todolist.entity.Todo;
 import com.spike.todolist.service.TodoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,5 +21,10 @@ public class TodoController {
     public Todo getTodoById(@PathVariable Integer id){
         return todoService.getTodoById(id);
     }
+    @PostMapping()
+    public Todo addTodo(@RequestBody Todo todo){
+        return todoService.addTodo(todo);
+    }
+
 
 }
